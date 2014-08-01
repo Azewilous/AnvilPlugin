@@ -160,7 +160,7 @@ public class AnvilGUI {
             }
         };
 
-        Bukkit.getPluginManager().registerEvents(listener, Anvil.getPlugin(Anvil.class)); //Replace with instance of main class
+        Bukkit.getPluginManager().registerEvents(listener, Anvil.getPlugin(Anvil.class));
     }
 
     public Player getPlayer(){
@@ -172,26 +172,17 @@ public class AnvilGUI {
 
         AnvilContainer container = new AnvilContainer(p);
 
-        //Set the items to the items from the inventory given
         inv = container.getBukkitView().getTopInventory();
 
         for(AnvilSlot slot : items.keySet()){
             inv.setItem(slot.getSlot(), items.get(slot));
         }
 
-        //Counter stuff that the game uses to keep track of inventories
         int c = p.nextContainerCounter();
 
-        //Send the packet
         p.playerConnection.sendPacket(new PacketPlayOutOpenWindow(c, 8, "Repairing", 9, true));
-
-        //Set their active container to the container
         p.activeContainer = container;
-
-        //Set their active container window id to that counter stuff
         p.activeContainer.windowId = c;
-
-        //Add the slot listener
         p.activeContainer.addSlotListener(p);
     }
 
