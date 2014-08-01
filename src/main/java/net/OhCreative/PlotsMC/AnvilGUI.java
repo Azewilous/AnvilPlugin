@@ -71,10 +71,6 @@ public class AnvilGUI {
             this.slot = slot;
         }
 
-        public AnvilSlot getSlot(){
-            return slot;
-        }
-
         public boolean getWillClose(){
             return close;
         }
