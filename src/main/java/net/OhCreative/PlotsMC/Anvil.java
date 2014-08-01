@@ -17,17 +17,27 @@ import java.util.List;
  * Created by OhCreative on 7/18/2014.
  */
 public class Anvil extends JavaPlugin implements Listener {
-    private String permission, prefix, noperms, reload, ukargs, message, notifyperm, reloadperm, helpperm;
-    private boolean msgops;
+    protected String permission;
+    protected String prefix;
+    protected String noperms;
+    protected String reload;
+    protected String ukargs;
+    protected String message;
+    protected String notifyperm;
+    protected String reloadperm;
+    protected String helpperm;
+    protected boolean msgops;
+
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
+
         getConfig().options().copyDefaults(true);
         saveConfig();
         loadConfig();
     }
 
 
-    public void loadConfig() {
+    protected void loadConfig() {
         this.prefix = this.getConfig().getString("anvil.prefix") + " ";
         this.permission = this.getConfig().getString("anvil.permission");
         this.noperms = this.getConfig().getString("anvil.NoPermMSG");

@@ -1,6 +1,7 @@
 name: PlotsAnvil
 main: net.OhCreative.PlotsMC.Anvil
 version: 1.0
+author: OhCreative
 
 commands:
    anvil:

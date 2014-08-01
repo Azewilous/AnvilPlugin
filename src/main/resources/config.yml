@@ -13,12 +13,11 @@ anvil:
     notifyperm: "anvil.reload.notify"
 # This permission will let the player see the help menu!
     helpperm: "anvil.help"
+
 # This message is sent to the player when using the command. You may use '&' color codes.
     message: "&9You have opened the anvil inventory."
-
 # No Permissions Message. You may use '&' color codes.
     NoPermMSG: "&4You don't have enough permissions."
-
 # Change the unknown arguments message. You may use '&' color codes.
     ArgsMSG: "&cUnknown Arguments."
 
