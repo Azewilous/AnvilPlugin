@@ -113,7 +113,6 @@ public class AnvilGUI {
                 if(event.getWhoClicked() instanceof Player){
 
                     if(event.getInventory().equals(inv)){
-                        event.setCancelled(true);
 
                         ItemStack item = event.getCurrentItem();
                         int slot = event.getRawSlot();
@@ -146,14 +145,9 @@ public class AnvilGUI {
 
             @EventHandler
             public void onInventoryClose(InventoryCloseEvent event){
-                if(event.getPlayer() instanceof Player){
-                    Player player = (Player) event.getPlayer();
-                    Inventory inv = event.getInventory();
-
+                if(event.getPlayer() instanceof Player){                    Inventory inv = event.getInventory();
                     if(inv.equals(AnvilGUI.this.inv)){
-                        ItemStack[] items = inv.getContents();
-                        Bukkit.getServer().getPlayer(player.getUniqueId()).getInventory().addItem(items);
-                        destroy();
+                            destroy();
                     }
                 }
             }
