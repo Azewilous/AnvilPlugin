@@ -55,16 +55,8 @@ public class Anvil extends JavaPlugin implements Listener {
                         {
                             public void onAnvilClick(AnvilGUI.AnvilClickEvent event)
                             {
-                                if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT)
-                                {
                                     event.setWillClose(false);
                                     event.setWillDestroy(false);
-                                }
-                                else
-                                {
-                                    event.setWillClose(false);
-                                    event.setWillDestroy(false);
-                                }
                             }
                         });
                         gui.open();
@@ -76,7 +68,6 @@ public class Anvil extends JavaPlugin implements Listener {
                     if(sender.hasPermission(this.reloadperm)) {
                         saveConfig();
                         reloadConfig();
-                        saveConfig();
                         loadConfig();
                         if (this.msgops) {
                             for(Player p : getPlayers()) {
@@ -107,7 +98,9 @@ public class Anvil extends JavaPlugin implements Listener {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + "Only player's may use this command."));
                 } else
                 if(args[0].equalsIgnoreCase("reload")) {
-                            reloadConfig();
+                    saveConfig();
+                    reloadConfig();
+                    loadConfig();
                             if (this.msgops) {
                                 for(Player p : getPlayers()) {
                                     if (p.hasPermission(this.notifyperm) || p.isOp()) {
