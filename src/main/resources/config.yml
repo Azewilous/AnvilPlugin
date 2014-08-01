@@ -1,0 +1,29 @@
+# Anvil Configuration
+anvil:
+
+# Change the prefix. You may use '&' color codes.
+    prefix: "&8[&7Anvil&8]"
+
+# The Permission nodes.
+# The basic permission to use the anvil
+    permission: "anvil.anvil"
+# Allows access to reload the configuration
+    reloadperm: "anvil.reload"
+# This permissions will let the player recieve a notification on configuration reload
+    notifyperm: "anvil.reload.notify"
+# This permission will let the player see the help menu!
+    helpperm: "anvil.help"
+# This message is sent to the player when using the command. You may use '&' color codes.
+    message: "&9You have opened the anvil inventory."
+
+# No Permissions Message. You may use '&' color codes.
+    NoPermMSG: "&4You don't have enough permissions."
+
+# Change the unknown arguments message. You may use '&' color codes.
+    ArgsMSG: "&cUnknown Arguments."
+
+# Message all ops on reload
+    msgops: false
+
+# Reload Message. You may use '&' color codes.
+    ReloadMSG: "&aYou have reloaded configuration."

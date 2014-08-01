@@ -1,0 +1,7 @@
+name: PlotsAnvil
+main: net.OhCreative.PlotsMC.Anvil
+version: 1.0
+
+commands:
+   anvil:
+     description: Open an anvil inventory!
