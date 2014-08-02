@@ -1,4 +1,4 @@
-package com.shadowcore.ohcreative.anvil;
+package net.shadowcode.ohcreative.anvil;
 
 import net.minecraft.server.v1_7_R4.ContainerAnvil;
 import net.minecraft.server.v1_7_R4.EntityHuman;
