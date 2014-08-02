@@ -72,7 +72,7 @@ public class Anvil extends JavaPlugin implements Listener {
                 if(args.length == 0)
                 {
                     if(economy) {
-                        if(sender.hasPermission(this.moneyperm) || sender.isOp()) {
+                        if(sender.hasPermission(this.moneyperm) || sender.isOp() || this.price == 0) {
                             AnvilGUI gui;
                             final Player player = (Player) sender;
                             if ((sender.hasPermission(this.permission)) || (sender.isOp())) {
