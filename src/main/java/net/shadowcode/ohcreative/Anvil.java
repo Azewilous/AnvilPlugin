@@ -14,7 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by OhCreative on 7/18/2014.
  */
 public class Anvil extends JavaPlugin implements Listener {
-    static Plugin plugin = Anvil.getPlugin(Anvil.class);
+    public Anvil plugin;
     public static String permission, prefix, noperms, reload, ukargs,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
     public static boolean msgops, economy, perms;
@@ -40,6 +40,18 @@ public class Anvil extends JavaPlugin implements Listener {
         }
 
     }
+    public void onReload() {
+        getServer().getPluginManager().registerEvents(this, this);
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        loadConfig();
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
@@ -166,23 +178,23 @@ public class Anvil extends JavaPlugin implements Listener {
 
 
 
-    public static void loadConfig() {
-        prefix = plugin.getConfig().getString("anvil.prefix") + " ";
-        permission = plugin.getConfig().getString("anvil.permission");
-        noperms = plugin.getConfig().getString("anvil.NoPermMSG");
-        ukargs = plugin.getConfig().getString("anvil.ArgsMSG");
-        reload = plugin.getConfig().getString("anvil.ReloadMSG");
-        msgops = plugin.getConfig().getBoolean("anvil.msgops");
-        message = plugin.getConfig().getString("anvil.message");
-        notifyperm = plugin.getConfig().getString("anvil.notifyperm");
-        reloadperm = plugin.getConfig().getString("anvil.reloadperm");
-        helpperm = plugin.getConfig().getString("anvil.helpperm");
-        helpmsg = plugin.getConfig().getString("anvil.helpmsg");
-        economy = plugin.getConfig().getBoolean("anvil.economy");
-        price = plugin.getConfig().getInt("anvil.economy.price");
-        moneymsg = plugin.getConfig().getString("anvil.NoMoneyMSG");
-        moneyperm = plugin.getConfig().getString("anvil.moneyperm");
-        perms = plugin.getConfig().getBoolean("anvil.perms");
+    public void loadConfig() {
+        prefix =    getConfig().getString("anvil.prefix") + " ";
+        permission = getConfig().getString("anvil.permission");
+        noperms = getConfig().getString("anvil.NoPermMSG");
+        ukargs = getConfig().getString("anvil.ArgsMSG");
+        reload = getConfig().getString("anvil.ReloadMSG");
+        msgops = getConfig().getBoolean("anvil.msgops");
+        message = getConfig().getString("anvil.message");
+        notifyperm = getConfig().getString("anvil.notifyperm");
+        reloadperm = getConfig().getString("anvil.reloadperm");
+        helpperm = getConfig().getString("anvil.helpperm");
+        helpmsg = getConfig().getString("anvil.helpmsg");
+        economy = getConfig().getBoolean("anvil.economy");
+        price = getConfig().getInt("anvil.economy.price");
+        moneymsg = getConfig().getString("anvil.NoMoneyMSG");
+        moneyperm = getConfig().getString("anvil.moneyperm");
+        perms = getConfig().getBoolean("anvil.perms");
     }
 
 }

@@ -78,7 +78,6 @@ public class SuperPermsCommandHandler implements CommandExecutor {
                     if (sender.hasPermission(Anvil.reloadperm)) {
                         plugin.saveConfig();
                         plugin.reloadConfig();
-                        Anvil.loadConfig();
                         if (Anvil.msgops) {
                             for (Player pl : PlayerManager.getPlayers()) {
                                 if (pl.hasPermission(Anvil.notifyperm) || pl.isOp()) {
@@ -110,7 +109,6 @@ public class SuperPermsCommandHandler implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("reload")) {
                 plugin.saveConfig();
                 plugin.reloadConfig();
-                Anvil.loadConfig();
                 if (Anvil.msgops) {
                     for (Player pl : PlayerManager.getPlayers()) {
                         if (sender.hasPermission(Anvil.notifyperm) || pl.isOp()) {
