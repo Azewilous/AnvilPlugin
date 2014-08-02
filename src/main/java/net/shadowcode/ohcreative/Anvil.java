@@ -34,10 +34,7 @@ public class Anvil extends JavaPlugin implements Listener {
           }
         }
         if(perms) {
-            if (!PermissionsManager.setupPermissions()) {
-                getLogger().severe(" has been disabled due to no Vault dependency found.");
-                getServer().getPluginManager().disablePlugin(this);
-            }
+           PermissionsManager.setupPermissions();
         } else {
             getCommand("anvil").setExecutor(new SuperPermsCommandHandler());
         }

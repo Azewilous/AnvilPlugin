@@ -16,9 +16,8 @@ public class SuperPermsCommandHandler implements CommandExecutor {
   Plugin plugin = Anvil.getPlugin(Anvil.class);
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (sender instanceof Player) {
-            Player p = (Player) sender;
             if (args.length == 0) {
-                if (Anvil.economy) {
+                if (Anvil.economy == true) {
                     if (sender.hasPermission(Anvil.moneyperm) || sender.isOp() || Anvil.price == 0) {
                         AnvilGUI gui;
                         final Player player = (Player) sender;
