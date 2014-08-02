@@ -87,6 +87,7 @@ public class AnvilGUI {
         public void setWillDestroy(boolean destroy){
             this.destroy = destroy;
         }
+
     }
 
     public interface AnvilClickEventHandler {

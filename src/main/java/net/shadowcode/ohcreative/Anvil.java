@@ -30,7 +30,6 @@ public class Anvil extends JavaPlugin implements Listener {
             getLogger().severe(String.format("Disabled due to no Vault dependency found."));
             getServer().getPluginManager().disablePlugin(this);
               getServer().getPluginManager().getPlugins();
-            return;
           }
         }
     }
