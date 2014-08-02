@@ -1,5 +1,4 @@
 ## Anvil Configuration
-#anvil:
 #
 ## Change the prefix. You may use '&' color codes.
 #    prefix: "&8[&7Anvil&8]"
