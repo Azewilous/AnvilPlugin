@@ -1,4 +1,4 @@
-package net.shadowcode.ohcreative.anvil;
+package net.shadowcode.ohcreative;
 
 import net.minecraft.server.v1_7_R4.ContainerAnvil;
 import net.minecraft.server.v1_7_R4.EntityHuman;
@@ -40,6 +40,7 @@ public class AnvilGUI {
         INPUT_LEFT(0),
         INPUT_RIGHT(1),
         OUTPUT(2);
+
 
         private int slot;
 
