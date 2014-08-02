@@ -26,6 +26,7 @@ public class Anvil extends JavaPlugin implements Listener {
     protected String notifyperm;
     protected String reloadperm;
     protected String helpperm;
+    protected String helpmsg;
     protected boolean msgops;
 
     public void onEnable() {
@@ -48,6 +49,7 @@ public class Anvil extends JavaPlugin implements Listener {
         this.notifyperm = this.getConfig().getString("anvil.notifyperm");
         this.reloadperm = this.getConfig().getString("anvil.reloadperm");
         this.helpperm = this.getConfig().getString("anvil.helpperm");
+        this.helpmsg = this.getConfig().getString("anvil.helpmsg");
     }
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -93,7 +95,7 @@ public class Anvil extends JavaPlugin implements Listener {
                     }
                 }  else if(args[0].equalsIgnoreCase("help")) {
                    if(sender.hasPermission(this.helpperm) || sender.isOp()) {
-                           sender.sendMessage(ChatColor.GOLD + "/anvil [help/reload]");
+                           sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + this.helpmsg));
                    } else {
                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix +  this.noperms));
                    }

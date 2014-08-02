@@ -16,6 +16,8 @@ anvil:
 
 # This message is sent to the player when using the command. You may use '&' color codes.
     message: "&9You have opened the anvil inventory."
+# This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
+    helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
 # No Permissions Message. You may use '&' color codes.
     NoPermMSG: "&4You don't have enough permissions."
 # Change the unknown arguments message. You may use '&' color codes.
