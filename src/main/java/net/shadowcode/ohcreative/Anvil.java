@@ -13,20 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by OhCreative on 7/18/2014.
  */
 public class Anvil extends JavaPlugin implements Listener {
-    protected String permission;
-    protected String prefix;
-    protected String noperms;
-    protected String reload;
-    protected String ukargs;
-    protected String message;
-    protected String notifyperm;
-    protected String reloadperm;
-    protected String helpperm;
-    protected String helpmsg;
-    protected String moneyperm;
-    protected String moneymsg;
-    protected boolean msgops;
-    protected boolean economy;
+    protected String permission, prefix, noperms, reload, ukargs,
+            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
+    protected boolean msgops, economy;
     protected int price;
 
     public void onEnable() {
