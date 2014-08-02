@@ -1,39 +1,62 @@
-# Anvil Configuration
-anvil:
-
-# Change the prefix. You may use '&' color codes.
-    prefix: "&8[&7Anvil&8]"
-
-# Enable Vault Economy Support.
-    economy: false
-# If eco is enabled, how much should it cost to run the /anvil command.
-    price: 10
-
-# The Permission nodes.
-# The basic permission to use the anvil
-    permission: "anvil.anvil"
-# Allows access to reload the configuration
-    reloadperm: "anvil.reload"
-# This permissions will let the player recieve a notification on configuration reload
-    notifyperm: "anvil.reload.notify"
-# This permission will let the player see the help menu!
-    helpperm: "anvil.help"
-# This permission will exempt the money cost to use the command. (Only if Economy is true)
-    moneyperm: "anvil.economy.exempt"
-
-# This message is sent to the player when using the command. You may use '&' color codes.
-    message: "&9You have opened the anvil inventory"
-# This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
-    helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
-# No Permissions Message. You may use '&' color codes.
-    NoPermMSG: "&4You don't have enough permissions."
-# Change the unknown arguments message. You may use '&' color codes.
-    ArgsMSG: "&cUnknown Arguments."
+## Anvil Configuration
+#anvil:
+#
+## Change the prefix. You may use '&' color codes.
+#    prefix: "&8[&7Anvil&8]"
+#
+## Enable Vault Economy Support.
+#    economy: false
+## If Economy is enabled, how much should it cost to run the /anvil command.
+#        price: 10
+#
+## Enable Vault Permission Handler
+## Currently Supports Permissions 3, bPermissions, PEX, GroupManager, PermissionsBukkit, zPermission, SimplyPerms, Privileges,
+## DroxPerms, and xPerms.
+#    perms: false
+#
+## The Permission nodes. (NOTE THESE WILL ONLY BE USED WHEN "perms" is equal to false.
+## The basic permission to use the anvil
+#    permission: "anvil.anvil"
+## Allows access to reload the configuration
+#    reloadperm: "anvil.reload"
+## This permissions will let the player recieve a notification on configuration reload
+#    notifyperm: "anvil.reload.notify"
+## This permission will let the player see the help menu!
+#    helpperm: "anvil.help"
+## This permission will exempt the money cost to use the command. (Only if Economy is true)
+#    moneyperm: "anvil.economy.exempt"
+#
+## This message is sent to the player when using the command. You may use '&' color codes.
+#    message: "&9You have opened the anvil inventory"
+## This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
+#    helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
+## No Permissions Message. You may use '&' color codes.
+#    NoPermMSG: "&4You don't have enough permissions."
+## Change the unknown arguments message. You may use '&' color codes.
+#    ArgsMSG: "&cUnknown Arguments."
 # If economy is true, This mesasge is sent if the player doesn't have enough money.
+#    NoMoneyMSG: "&cYou do not have enough money!"
+#
+## Message all ops on reload
+#    msgops: false
+#
+## Reload Message. You may use '&' color codes.
+#    ReloadMSG: "&aYou have reloaded configuration."
+########################################################################################################3
+anvil:
+    prefix: "&8[&7Anvil&8]"
+    economy: false
+        price: 10
+    perms: false
+    permission: "anvil.anvil"
+    reloadperm: "anvil.reload"
+    notifyperm: "anvil.reload.notify"
+    helpperm: "anvil.help"
+    moneyperm: "anvil.economy.exempt"
+    message: "&9You have opened the anvil inventory"
+    helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
+    NoPermMSG: "&4You don't have enough permissions."
+    ArgsMSG: "&cUnknown Arguments."
     NoMoneyMSG: "&cYou do not have enough money!"
-
-# Message all ops on reload
     msgops: false
-
-# Reload Message. You may use '&' color codes.
     ReloadMSG: "&aYou have reloaded configuration."
