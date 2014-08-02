@@ -1,6 +1,5 @@
 package net.shadowcode.ohcreative.anvil;
 
-import net.shadowcode.ohcreative.anvil.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
