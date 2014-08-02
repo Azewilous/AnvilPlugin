@@ -4,6 +4,11 @@ anvil:
 # Change the prefix. You may use '&' color codes.
     prefix: "&8[&7Anvil&8]"
 
+# Enable Vault Economy Support.
+    economy: false
+# If eco is enabled, how much should it cost to run the /anvil command.
+    price: 10
+
 # The Permission nodes.
 # The basic permission to use the anvil
     permission: "anvil.anvil"
@@ -13,15 +18,19 @@ anvil:
     notifyperm: "anvil.reload.notify"
 # This permission will let the player see the help menu!
     helpperm: "anvil.help"
+# This permission will exempt the money cost to use the command. (Only if Economy is true)
+    moneyperm: "anvil.economy.exempt"
 
 # This message is sent to the player when using the command. You may use '&' color codes.
-    message: "&9You have opened the anvil inventory."
+    message: "&9You have opened the anvil inventory"
 # This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
     helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
 # No Permissions Message. You may use '&' color codes.
     NoPermMSG: "&4You don't have enough permissions."
 # Change the unknown arguments message. You may use '&' color codes.
     ArgsMSG: "&cUnknown Arguments."
+# If economy is true, This mesasge is sent if the player doesn't have enough money.
+    NoMoneyMSG: "&cYou do not have enough money!"
 
 # Message all ops on reload
     msgops: false

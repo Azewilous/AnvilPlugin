@@ -2,6 +2,7 @@ name: PlotsAnvil
 main: net.shadowcode.ohcreative.Anvil
 version: 1.0
 author: OhCreative
+softdepend: Vault
 
 commands:
    anvil:

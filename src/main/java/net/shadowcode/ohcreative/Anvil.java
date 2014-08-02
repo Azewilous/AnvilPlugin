@@ -1,19 +1,12 @@
 package net.shadowcode.ohcreative;
 
-import org.bukkit.Bukkit;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * AnvilPlugin
@@ -30,7 +23,11 @@ public class Anvil extends JavaPlugin implements Listener {
     protected String reloadperm;
     protected String helpperm;
     protected String helpmsg;
+    protected String moneyperm;
+    protected String moneymsg;
     protected boolean msgops;
+    protected boolean economy;
+    protected int price;
 
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
@@ -38,6 +35,14 @@ public class Anvil extends JavaPlugin implements Listener {
         getConfig().options().copyDefaults(true);
         saveConfig();
         loadConfig();
+
+    if(getConfig().getBoolean("economy")) {
+        if (!EconomyManager.setupEconomy()) {
+            getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found.", getDescription().getName()));
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+    }
     }
 
 
@@ -53,6 +58,11 @@ public class Anvil extends JavaPlugin implements Listener {
         this.reloadperm = this.getConfig().getString("anvil.reloadperm");
         this.helpperm = this.getConfig().getString("anvil.helpperm");
         this.helpmsg = this.getConfig().getString("anvil.helpmsg");
+        this.economy = this.getConfig().getBoolean("anvil.economy");
+        this.price = this.getConfig().getInt("anvil.price");
+        this.moneymsg = this.getConfig().getString("anvil.NoMoneyMSG");
+        this.moneyperm = this.getConfig().getString("anvil.moneyperm");
+
     }
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -61,51 +71,91 @@ public class Anvil extends JavaPlugin implements Listener {
             if(sender instanceof Player) {
                 if(args.length == 0)
                 {
-                    AnvilGUI gui;
-                    final Player player = (Player) sender;
-                    if ((sender.hasPermission(this.permission)) || (sender.isOp()))
-                    {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.message));
-                        gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler()
-                        {
-                            public void onAnvilClick(AnvilGUI.AnvilClickEvent event)
-                            {
-                                    event.setWillClose(false);
-                                    event.setWillDestroy(false);
+                    if(economy) {
+                        if(sender.hasPermission(this.moneyperm) || sender.isOp()) {
+                            AnvilGUI gui;
+                            final Player player = (Player) sender;
+                            if ((sender.hasPermission(this.permission)) || (sender.isOp())) {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.message));
+                                gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
+                                    public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
+                                        event.setWillClose(false);
+                                        event.setWillDestroy(false);
+                                    }
+                                });
+                                gui.open();
+                            } else {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.noperms));
+                                return true;
                             }
-                        });
-                        gui.open();
-                    }  else {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix +  this.noperms));
-                        return true;
-                    }
-                } else if(args[0].equalsIgnoreCase("reload")) {
-                    if(sender.hasPermission(this.reloadperm)) {
-                        saveConfig();
-                        reloadConfig();
-                        loadConfig();
-                        if (this.msgops) {
-                            for(Player p : getPlayers()) {
-                                if(p.hasPermission(this.notifyperm) || p.isOp()) {
-                                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
-                                }
+                        }
+                      EconomyResponse r = EconomyManager.econ.withdrawPlayer(sender.getName(), this.price);
+                        if (r.transactionSuccess()) {
+                            AnvilGUI gui;
+                            final Player player = (Player) sender;
+                            if ((sender.hasPermission(this.permission)) || (sender.isOp())) {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.message) + " for " + ChatColor.GREEN + "$" + this.price);
+                                gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
+                                    public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
+                                        event.setWillClose(false);
+                                        event.setWillDestroy(false);
+                                    }
+                                });
+                                gui.open();
+                            } else {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.noperms));
+                                return true;
                             }
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.moneymsg));
                         }
+
                     } else {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix +  this.noperms));
+                        AnvilGUI gui;
+                        final Player player = (Player) sender;
+                        if ((sender.hasPermission(this.permission)) || (sender.isOp())) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.message));
+                            gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
+                                public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
+                                    event.setWillClose(false);
+                                    event.setWillDestroy(false);
+                                }
+                            });
+                            gui.open();
+                        } else {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.noperms));
+                            return true;
+                        }
                     }
-                }  else if(args[0].equalsIgnoreCase("help")) {
-                   if(sender.hasPermission(this.helpperm) || sender.isOp()) {
-                           sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + this.helpmsg));
-                   } else {
-                       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix +  this.noperms));
-                   }
-
                 } else {
+                    if (args[0].equalsIgnoreCase("reload")) {
+                        if (sender.hasPermission(this.reloadperm)) {
+                            saveConfig();
+                            reloadConfig();
+                            loadConfig();
+                            if (this.msgops) {
+                                for (Player p : PlayerManager.getPlayers()) {
+                                    if (p.hasPermission(this.notifyperm) || p.isOp()) {
+                                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
+                                    }
+                                }
+                            } else {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
+                            }
+                        } else {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.noperms));
+                        }
+                    } else if (args[0].equalsIgnoreCase("help")) {
+                        if (sender.hasPermission(this.helpperm) || sender.isOp()) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + this.helpmsg));
+                        } else {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.noperms));
+                        }
 
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.ukargs));
+                    } else {
+
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.ukargs));
+                    }
                 }
 
             } else {
@@ -116,49 +166,26 @@ public class Anvil extends JavaPlugin implements Listener {
                     saveConfig();
                     reloadConfig();
                     loadConfig();
-                            if (this.msgops) {
-                                for(Player p : getPlayers()) {
-                                    if (p.hasPermission(this.notifyperm) || p.isOp()) {
-                                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
-                                    }
-                                }
-                            } else {
+                    if (this.msgops) {
+                        for(Player p : PlayerManager.getPlayers()) {
+                            if (p.hasPermission(this.notifyperm) || p.isOp()) {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
                             }
-
+                        }
                     } else {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.ukargs));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.reload));
                     }
+
+                } else {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.prefix + this.ukargs));
                 }
+            }
             }
 
         return true;
     }
 
-    public String readVersion() {
-        String string;
-        string =  Bukkit.getBukkitVersion();
-        return string;
-    }
 
-    protected static List<Player> players = new ArrayList<Player>();
-
-    @EventHandler
-    protected void onJoin(PlayerJoinEvent event)
-    {
-        players.add(event.getPlayer());
-    }
-
-    @EventHandler
-    protected void onQuit(PlayerQuitEvent event)
-    {
-        players.remove(event.getPlayer());
-    }
-
-    public List<Player> getPlayers()
-    {
-        return players;
-    }
 
 
 
