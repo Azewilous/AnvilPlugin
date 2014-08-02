@@ -2,7 +2,7 @@ name: Anvil
 main: net.shadowcode.ohcreative.Anvil
 version: 1.0
 author: OhCreative
-softdepend: Vault
+softdepend: [Vault]
 
 commands:
    anvil:
