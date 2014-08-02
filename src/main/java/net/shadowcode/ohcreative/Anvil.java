@@ -1,6 +1,7 @@
 package net.shadowcode.ohcreative;
 
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -119,9 +120,8 @@ public class Anvil extends JavaPlugin implements Listener {
                 } else {
                     if (args[0].equalsIgnoreCase("reload")) {
                         if (PermissionsManager.perms.has(p, reloadperm)) {
-                            saveConfig();
-                            reloadConfig();
-                            loadConfig();
+                            Bukkit.getPluginManager().disablePlugin(this);
+                            Bukkit.getPluginManager().enablePlugin(this);
                             if (msgops) {
                                 for (Player pl : PlayerManager.getPlayers()) {
                                     if (PermissionsManager.perms.has(pl, notifyperm) || p.isOp()) {
@@ -152,9 +152,9 @@ public class Anvil extends JavaPlugin implements Listener {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "Only player's may use this command."));
                 } else
                 if(args[0].equalsIgnoreCase("reload")) {
-                    saveConfig();
-                    reloadConfig();
-                    loadConfig();
+                    Bukkit.getPluginManager().disablePlugin(this);
+                    Bukkit.getPluginManager().enablePlugin(this);
+
                     if (msgops) {
                         for(Player p : PlayerManager.getPlayers()) {
                             if (PermissionsManager.perms.has(p, notifyperm) || p.isOp()) {
@@ -191,7 +191,7 @@ public class Anvil extends JavaPlugin implements Listener {
         helpperm = getConfig().getString("anvil.helpperm");
         helpmsg = getConfig().getString("anvil.helpmsg");
         economy = getConfig().getBoolean("anvil.economy");
-        price = getConfig().getInt("anvil.economy.price");
+        price = getConfig().getInt("anvil.price");
         moneymsg = getConfig().getString("anvil.NoMoneyMSG");
         moneyperm = getConfig().getString("anvil.moneyperm");
         perms = getConfig().getBoolean("anvil.perms");

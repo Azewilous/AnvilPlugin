@@ -1,6 +1,7 @@
 package net.shadowcode.ohcreative;
 
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -76,8 +77,8 @@ public class SuperPermsCommandHandler implements CommandExecutor {
             } else {
                 if (args[0].equalsIgnoreCase("reload")) {
                     if (sender.hasPermission(Anvil.reloadperm)) {
-                        plugin.saveConfig();
-                        plugin.reloadConfig();
+                        Bukkit.getPluginManager().disablePlugin(Anvil.getPlugin(Anvil.class));
+                        Bukkit.getPluginManager().enablePlugin(Anvil.getPlugin(Anvil.class));
                         if (Anvil.msgops) {
                             for (Player pl : PlayerManager.getPlayers()) {
                                 if (pl.hasPermission(Anvil.notifyperm) || pl.isOp()) {
@@ -107,8 +108,8 @@ public class SuperPermsCommandHandler implements CommandExecutor {
             if (args.length == 0) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Anvil.prefix + "Only player's may use Anvil command."));
             } else if (args[0].equalsIgnoreCase("reload")) {
-                plugin.saveConfig();
-                plugin.reloadConfig();
+                Bukkit.getPluginManager().disablePlugin(Anvil.getPlugin(Anvil.class));
+                Bukkit.getPluginManager().enablePlugin(Anvil.getPlugin(Anvil.class));
                 if (Anvil.msgops) {
                     for (Player pl : PlayerManager.getPlayers()) {
                         if (sender.hasPermission(Anvil.notifyperm) || pl.isOp()) {

@@ -7,7 +7,7 @@
 ## Enable Vault Economy Support.
 #    economy: false
 ## If Economy is enabled, how much should it cost to run the /anvil command.
-#        price: 10
+#    price: 10
 #
 ## Enable Vault Permission Handler
 ## Currently Supports Permissions 3, bPermissions, PEX, GroupManager, PermissionsBukkit, zPermission, SimplyPerms, Privileges,
@@ -46,7 +46,7 @@
 anvil:
     prefix: "&8[&7Anvil&8]"
     economy: false
-        price: 10
+    price: 10
     perms: false
     permission: "anvil.anvil"
     reloadperm: "anvil.reload"
