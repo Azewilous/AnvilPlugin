@@ -27,8 +27,9 @@ public class Anvil extends JavaPlugin implements Listener {
 
         if(this.economy) {
           if (!EconomyManager.setupEconomy()) {
-            getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found.", getDescription().getName()));
+            getLogger().severe(String.format("Disabled due to no Vault dependency found."));
             getServer().getPluginManager().disablePlugin(this);
+              getServer().getPluginManager().getPlugins();
             return;
           }
         }
@@ -51,7 +52,6 @@ public class Anvil extends JavaPlugin implements Listener {
         this.price = this.getConfig().getInt("anvil.price");
         this.moneymsg = this.getConfig().getString("anvil.NoMoneyMSG");
         this.moneyperm = this.getConfig().getString("anvil.moneyperm");
-
     }
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
