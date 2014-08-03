@@ -1,12 +1,10 @@
 package net.shadowcode.ohcreative;
 
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -14,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * AnvilPlugin
  * Created by OhCreative on 7/18/2014.
  */
-public class Anvil extends JavaPlugin implements Listener {
+public class Anvil extends JavaPlugin {
     public Anvil plugin;
     public static String permission, prefix, noperms, reload, ukargs, vperm,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
@@ -22,12 +20,11 @@ public class Anvil extends JavaPlugin implements Listener {
     public static int price;
 
     public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
         if(getDataFolder() == null || !getDataFolder().exists()) {
             getConfig().options().copyDefaults(true);
         }
-        saveConfig();
         loadConfig();
 
         if(economy) {
@@ -37,13 +34,6 @@ public class Anvil extends JavaPlugin implements Listener {
           }
         }
            PermissionsManager.setupPermissions();
-    }
-    public void onReload() {
-        getServer().getPluginManager().registerEvents(this, this);
-
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-        loadConfig();
     }
 
     public Plugin getPlugin() {
@@ -142,7 +132,14 @@ public class Anvil extends JavaPlugin implements Listener {
 
                     } else if(args[0].equalsIgnoreCase("version")) {
                         if (PermissionsManager.perms.has(p, vperm) || sender.isOp()) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + helpmsg));
+                            p.sendMessage("");
+                            p.sendMessage(ChatColor.BLUE + "Anvil");
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
+                            p.sendMessage(ChatColor.GREEN + "Version: " + ChatColor.RED + getDescription().getVersion());
+                            p.sendMessage(ChatColor.DARK_GREEN + "Developers: " + ChatColor.RED + "OhCreative");
+                            p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
+                            p.sendMessage("");
+
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
                         }
@@ -172,6 +169,14 @@ public class Anvil extends JavaPlugin implements Listener {
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
                     }
 
+                } else if(args[0].equalsIgnoreCase("version")) {
+                    sender.sendMessage("");
+                    sender.sendMessage(ChatColor.BLUE + "Anvil");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
+                    sender.sendMessage(ChatColor.GREEN + "Version: " + ChatColor.RED + getDescription().getVersion());
+                    sender.sendMessage(ChatColor.DARK_GREEN + "Developers: " + ChatColor.RED + "OhCreative");
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
+                    sender.sendMessage("");
                 } else {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ukargs));
                 }
