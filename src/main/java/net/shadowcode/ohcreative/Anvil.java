@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Anvil extends JavaPlugin implements Listener {
     public Anvil plugin;
-    public static String permission, prefix, noperms, reload, ukargs,
+    public static String permission, prefix, noperms, reload, ukargs, vperm,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
     public static boolean msgops, economy;
     public static int price;
@@ -63,7 +63,7 @@ public class Anvil extends JavaPlugin implements Listener {
                             AnvilGUI gui;
                             final Player player = (Player) sender;
                             if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message));
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ChatColor.RED + "[ADMIN]" + message));
                                 gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                     public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                         event.setWillClose(false);
@@ -82,7 +82,7 @@ public class Anvil extends JavaPlugin implements Listener {
                                 AnvilGUI gui;
                                 final Player player = (Player) sender;
                                 if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + " for " + ChatColor.GREEN + "$" + price);
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + ChatColor.GREEN + "$" + price);
                                     gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                         public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                             event.setWillClose(false);
@@ -118,8 +118,9 @@ public class Anvil extends JavaPlugin implements Listener {
                 } else {
                     if (args[0].equalsIgnoreCase("reload")) {
                         if (PermissionsManager.perms.has(p, reloadperm)) {
-                            Bukkit.getPluginManager().disablePlugin(this);
-                            Bukkit.getPluginManager().enablePlugin(this);
+                            saveConfig();
+                            reloadConfig();
+                            loadConfig();
                             if (msgops) {
                                 for (Player pl : PlayerManager.getPlayers()) {
                                     if (PermissionsManager.perms.has(pl, notifyperm) || p.isOp()) {
@@ -150,8 +151,9 @@ public class Anvil extends JavaPlugin implements Listener {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "Only player's may use this command."));
                 } else
                 if(args[0].equalsIgnoreCase("reload")) {
-                    Bukkit.getPluginManager().disablePlugin(this);
-                    Bukkit.getPluginManager().enablePlugin(this);
+                    saveConfig();
+                    reloadConfig();
+                    loadConfig();
 
                     if (msgops) {
                         for(Player p : PlayerManager.getPlayers()) {
@@ -177,21 +179,22 @@ public class Anvil extends JavaPlugin implements Listener {
 
 
     public void loadConfig() {
-        prefix =    getConfig().getString("anvil.prefix") + " ";
-        permission = getConfig().getString("anvil.permission");
+        prefix = getConfig().getString("anvil.prefix") + " ";
+        permission = "anvil.anvil";
         noperms = getConfig().getString("anvil.NoPermMSG");
         ukargs = getConfig().getString("anvil.ArgsMSG");
         reload = getConfig().getString("anvil.ReloadMSG");
         msgops = getConfig().getBoolean("anvil.msgops");
         message = getConfig().getString("anvil.message");
-        notifyperm = getConfig().getString("anvil.notifyperm");
-        reloadperm = getConfig().getString("anvil.reloadperm");
-        helpperm = getConfig().getString("anvil.helpperm");
+        notifyperm = "anvil.reload.notify";
+        reloadperm = "anvil.reload";
+        helpperm = "anvil.help";
         helpmsg = getConfig().getString("anvil.helpmsg");
         economy = getConfig().getBoolean("anvil.economy");
         price = getConfig().getInt("anvil.price");
         moneymsg = getConfig().getString("anvil.NoMoneyMSG");
-        moneyperm = getConfig().getString("anvil.moneyperm");
+        moneyperm = "anvil.economy.exempt";
+        vperm = "anvil.version";
     }
 
 }

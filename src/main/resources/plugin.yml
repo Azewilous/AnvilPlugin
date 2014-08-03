@@ -7,3 +7,23 @@ depend: [Vault]
 commands:
    anvil:
      description: Open an anvil inventory!
+
+permissions:
+    anvil.*:
+      default: op
+      children:
+        anvil.anvil: true
+        anvil.reload: true
+        anvil.reload.notify: true
+        anvil.help: true
+        anvil.economy.exempt: true
+    anvil.anvil:
+      default: true
+    anvil.reload:
+      default: op
+    anvil.reload.notify:
+      default: op
+    anvil.help:
+      default: true
+    anvil.economy.exempt:
+      default: op

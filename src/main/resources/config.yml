@@ -13,18 +13,6 @@
 ## DroxPerms, and xPerms.
 #    perms: false
 #
-## The Permission nodes. (NOTE THESE WILL ONLY BE USED WHEN "perms" is equal to false.
-## The basic permission to use the anvil
-#    permission: "anvil.anvil"
-## Allows access to reload the configuration
-#    reloadperm: "anvil.reload"
-## This permissions will let the player recieve a notification on configuration reload
-#    notifyperm: "anvil.reload.notify"
-## This permission will let the player see the help menu!
-#    helpperm: "anvil.help"
-## This permission will exempt the money cost to use the command. (Only if Economy is true)
-#    moneyperm: "anvil.economy.exempt"
-#
 ## This message is sent to the player when using the command. You may use '&' color codes.
 #    message: "&9You have opened the anvil inventory"
 ## This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
@@ -46,13 +34,8 @@ anvil:
     prefix: "&8[&7Anvil&8]"
     economy: false
     price: 10
-    perms: false
-    permission: "anvil.anvil"
-    reloadperm: "anvil.reload"
-    notifyperm: "anvil.reload.notify"
-    helpperm: "anvil.help"
-    moneyperm: "anvil.economy.exempt"
-    message: "&9You have opened the anvil inventory"
+    perms: true
+    message: "&9You have opened the anvil inventory."
     helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
     NoPermMSG: "&4You don't have enough permissions."
     ArgsMSG: "&cUnknown Arguments."
