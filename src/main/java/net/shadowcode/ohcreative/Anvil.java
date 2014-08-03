@@ -140,7 +140,14 @@ public class Anvil extends JavaPlugin implements Listener {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
                         }
 
-                    } else {
+                    } else if(args[0].equalsIgnoreCase("version")) {
+                        if (PermissionsManager.perms.has(p, vperm) || sender.isOp()) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + helpmsg));
+                        } else {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                        }
+                    }
+                    else {
 
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ukargs));
                     }

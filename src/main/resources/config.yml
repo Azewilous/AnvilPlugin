@@ -8,11 +8,6 @@
 ## If Economy is enabled, how much should it cost to run the /anvil command.
 #    price: 10
 #
-## Enable Vault Permission Handler
-## Currently Supports Permissions 3, bPermissions, PEX, GroupManager, PermissionsBukkit, zPermission, SimplyPerms, Privileges,
-## DroxPerms, and xPerms.
-#    perms: false
-#
 ## This message is sent to the player when using the command. You may use '&' color codes.
 #    message: "&9You have opened the anvil inventory"
 ## This message edits the message returned when a player does "/anvil help". You may use '&' color codes.
@@ -34,7 +29,6 @@ anvil:
     prefix: "&8[&7Anvil&8]"
     economy: false
     price: 10
-    perms: true
     message: "&9You have opened the anvil inventory."
     helpmsg: "&cUsage: &6/anvil [&ahelp&6/&9reload&6]"
     NoPermMSG: "&4You don't have enough permissions."
