@@ -72,7 +72,7 @@ public class Anvil extends JavaPlugin {
                                 AnvilGUI gui;
                                 final Player player = (Player) sender;
                                 if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + ChatColor.GREEN + "$" + price);
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + ChatColor.RED + "-$" + price);
                                     gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                         public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                             event.setWillClose(false);
