@@ -22,10 +22,10 @@ public class Anvil extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
-        if(getDataFolder() == null || !getDataFolder().exists()) {
-            getConfig().options().copyDefaults(true);
-        }
+        saveConfig();
         loadConfig();
+
+        this.saveDefaultConfig();
 
         if(economy) {
           if (!EconomyManager.setupEconomy()) {
