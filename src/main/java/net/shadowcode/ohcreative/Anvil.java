@@ -22,10 +22,10 @@ public class Anvil extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
+        setupConfig();
+        getConfig().options().copyDefaults(true);
         saveConfig();
         loadConfig();
-
-        this.saveDefaultConfig();
 
         if(economy) {
           if (!EconomyManager.setupEconomy()) {
@@ -207,6 +207,29 @@ public class Anvil extends JavaPlugin {
         moneymsg = getConfig().getString("anvil.NoMoneyMSG");
         moneyperm = "anvil.economy.exempt";
         vperm = "anvil.version";
+    }
+
+    public void setupConfig() {
+        getConfig().options().header("Anvil Configuration\n " + "\n" + "Change the prefix. You may use '&' color codes.\n" +
+                "    prefix: \"&8[&7Anvil&8]\"\n" + "\n" + "Enable Vault Economy Support.\n" + "    economy: false\n"  + "\n" +
+                "If Economy is enabled, how much should it cost to run the /anvil command.\n" + "    price: 10" + "\n" +
+                "This message is sent to the player when using the command. You may use '&' color codes.\n"
+                + "    message: \"&9You have opened the anvil inventory\"\n" + "This message edits the message returned when a player does \"/anvil help\". You may use '&' color codes.\n"
+                + "    helpmsg: \"&cUsage: &6/anvil [&ahelp&6/&9reload&6]\"\n" + "No Permissions Message. You may use '&' color codes.\n"
+                + "    NoPermMSG: \"&4You don't have enough permissions.\"\n" + "Change the unknown arguments message. You may use '&' color codes.\n" + ""
+                + "    ArgsMSG: \"&cUnknown Arguments.\"\n" + "If economy is true, This mesasge is sent if the player doesn't have enough money.\n" +
+                "    NoMoneyMSG: \"&cYou do not have enough money!\"\n" + "\n" + "Message all ops on reload\n" + "    msgops: false\n" + "\n" +
+                "Reload Message. You may use '&' color codes.\n" + "     ReloadMSG: \"&aYou have reloaded configuration.\"\n" + "#########################################################################################################\n");
+        getConfig().addDefault("anvil.prefix", String.valueOf("&8[&7Anvil&8]"));
+        getConfig().addDefault("anvil.economy", Boolean.valueOf(false));
+        getConfig().addDefault("anvil.price", Integer.valueOf(10));
+        getConfig().addDefault("anvil.message", String.valueOf("&9You have opened the anvil inventory."));
+        getConfig().addDefault("anvil.helpmsg", String.valueOf("&cUsage: &6/anvil [&ahelp&6/&9reload&6]"));
+        getConfig().addDefault("anvil.NoPermMSG", String.valueOf("&4You don't have enough permissions."));
+        getConfig().addDefault("anvil.ArgsMSG", String.valueOf("&cUnknown Arguments."));
+        getConfig().addDefault("anvil.NoMoneyMSG", String.valueOf("&cYou do not have enough money!"));
+        getConfig().addDefault("anvil.msgops", Boolean.valueOf(false));
+        getConfig().addDefault("anvil.ReloadMSG", String.valueOf("&aYou have reloaded configuration."));
     }
 
 }

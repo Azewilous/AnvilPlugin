@@ -23,7 +23,7 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <scope>provided</scope>
-            <version>LATEST</version>
+            <version>1.7.9-R0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
