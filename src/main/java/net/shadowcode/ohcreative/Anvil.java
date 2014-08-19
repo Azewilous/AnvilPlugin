@@ -23,10 +23,7 @@ public class Anvil extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
         setupConfig();
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-        loadConfig();
-
+        
         if(economy) {
           if (!EconomyManager.setupEconomy()) {
             getLogger().severe(" has been disabled due to no Vault dependency found.");
