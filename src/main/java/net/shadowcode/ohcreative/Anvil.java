@@ -13,7 +13,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Created by OhCreative on 7/18/2014.
  */
 public class Anvil extends JavaPlugin {
-    public Anvil plugin;
     public static String permission, prefix, noperms, reload, ukargs, vperm,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
     public static boolean msgops, economy;
@@ -32,11 +31,6 @@ public class Anvil extends JavaPlugin {
         }
            PermissionsManager.setupPermissions();
     }
-
-    public Plugin getPlugin() {
-        return plugin;
-    }
-
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 
@@ -123,6 +117,13 @@ public class Anvil extends JavaPlugin {
                     } else if (args[0].equalsIgnoreCase("help")) {
                         if (PermissionsManager.perms.has(p, helpperm) || sender.isOp()) {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + helpmsg));
+                            sender.sendMessage(ChatColor.GOLD + "/anvil" + ChatColor.WHITE + " - Open the anvil interface!");
+                            sender.sendMessage(ChatColor.GOLD + "/anvil help" + ChatColor.WHITE + " - View help menu.");
+                            sender.sendMessage(ChatColor.GOLD + "/anvil version" + ChatColor.WHITE + " - Anvil Version!");
+                            if(PermissionsManager.perms.has(p, reloadperm) || sender.isOp()) {
+                                sender.sendMessage(ChatColor.GOLD + "/anvil reload" + ChatColor.WHITE + " - Reload Configuration.");
+                            }
+
                         } else {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
                         }
@@ -190,19 +191,19 @@ public class Anvil extends JavaPlugin {
     public void loadConfig() {
         prefix = getConfig().getString("anvil.prefix") + " ";
         permission = "anvil.anvil";
-        noperms = getConfig().getString("anvil.NoPermMSG");
-        ukargs = getConfig().getString("anvil.ArgsMSG");
-        reload = getConfig().getString("anvil.ReloadMSG");
+        noperms = "&4You don't have enough permissions.";
+        ukargs = "&cUnknown Arguments.";
+        reload = "&aYou have reloaded configuration.";
         msgops = getConfig().getBoolean("anvil.msgops");
-        message = getConfig().getString("anvil.message");
         notifyperm = "anvil.reload.notify";
         reloadperm = "anvil.reload";
+        helpmsg = "Anvil Help Menu:";
         helpperm = "anvil.help";
-        helpmsg = getConfig().getString("anvil.helpmsg");
         economy = getConfig().getBoolean("anvil.economy");
         price = getConfig().getInt("anvil.price");
-        moneymsg = getConfig().getString("anvil.NoMoneyMSG");
+        moneymsg = "&cYou do not have enough money!";
         moneyperm = "anvil.economy.exempt";
+        message = "&9You have opened the anvil inventory";
         vperm = "anvil.version";
     }
 
