@@ -34,5 +34,7 @@ public class PlayerManager implements Listener {
         return players;
     }
 
+    public static int getOnlineCount() { return (players.size()); }
+
 
 }

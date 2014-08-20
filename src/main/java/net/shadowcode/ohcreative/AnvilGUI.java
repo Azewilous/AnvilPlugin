@@ -144,7 +144,8 @@ public class AnvilGUI {
 
             @EventHandler
             public void onInventoryClose(InventoryCloseEvent event){
-                if(event.getPlayer() instanceof Player){                    Inventory inv = event.getInventory();
+                if(event.getPlayer() instanceof Player){
+                    Inventory inv = event.getInventory();
                     if(inv.equals(AnvilGUI.this.inv)){
                             destroy();
                     }
