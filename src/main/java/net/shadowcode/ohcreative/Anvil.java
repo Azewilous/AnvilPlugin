@@ -194,7 +194,7 @@ public class Anvil extends JavaPlugin {
         noperms = "&4You don't have enough permissions.";
         ukargs = "&cUnknown Arguments.";
         reload = "&aYou have reloaded configuration.";
-        msgops = getConfig().getBoolean("anvil.msgops");
+        msgops = true;
         notifyperm = "anvil.reload.notify";
         reloadperm = "anvil.reload";
         helpmsg = "Anvil Help Menu:";
