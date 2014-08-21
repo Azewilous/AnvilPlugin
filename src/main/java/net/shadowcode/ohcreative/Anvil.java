@@ -1,12 +1,15 @@
 package net.shadowcode.ohcreative;
 
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.swing.*;
 
 /**
  * AnvilPlugin
@@ -15,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Anvil extends JavaPlugin {
     public static String permission, prefix, noperms, reload, ukargs, vperm,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
+    public String bukkitVersion;
     public static boolean msgops, economy;
     public static int price;
 
@@ -22,6 +26,10 @@ public class Anvil extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
         setupConfig();
+
+        bukkitVersion = Bukkit.getVersion();
+
+        getLogger().severe("Running Server version: " + bukkitVersion);
 
         if(economy) {
           if (!EconomyManager.setupEconomy()) {
@@ -101,7 +109,7 @@ public class Anvil extends JavaPlugin {
                         if (PermissionsManager.perms.has(p, reloadperm)) {
                             saveConfig();
                             reloadConfig();
-                            loadConfig();
+                            loadVars();
                             if (msgops) {
                                 for (Player pl : PlayerManager.getPlayers()) {
                                     if (PermissionsManager.perms.has(pl, notifyperm) || p.isOp()) {
@@ -155,7 +163,7 @@ public class Anvil extends JavaPlugin {
                 if(args[0].equalsIgnoreCase("reload")) {
                     saveConfig();
                     reloadConfig();
-                    loadConfig();
+                    loadVars();
 
                     if (msgops) {
                         for(Player p : PlayerManager.getPlayers()) {
@@ -188,7 +196,7 @@ public class Anvil extends JavaPlugin {
 
 
 
-    public void loadConfig() {
+    public void loadVars() {
         prefix = getConfig().getString("anvil.prefix") + " ";
         permission = "anvil.anvil";
         noperms = "&4You don't have enough permissions.";
@@ -210,7 +218,7 @@ public class Anvil extends JavaPlugin {
     public void setupConfig() {
         saveDefaultConfig();
         saveConfig();
-        loadConfig();
+        loadVars();
     }
 
 }
