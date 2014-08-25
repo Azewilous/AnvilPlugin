@@ -107,8 +107,8 @@ public class Anvil extends JavaPlugin {
                 } else {
                     if (args[0].equalsIgnoreCase("reload")) {
                         if (PermissionsManager.perms.has(p, reloadperm)) {
-                            saveConfig();
                             reloadConfig();
+                            saveConfig();
                             loadVars();
                             if (msgops) {
                                 for (Player pl : PlayerManager.getPlayers()) {
@@ -161,8 +161,8 @@ public class Anvil extends JavaPlugin {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "Only player's may use this command."));
                 } else
                 if(args[0].equalsIgnoreCase("reload")) {
-                    saveConfig();
                     reloadConfig();
+                    saveConfig();
                     loadVars();
 
                     if (msgops) {
@@ -216,7 +216,7 @@ public class Anvil extends JavaPlugin {
     }
 
     public void setupConfig() {
-        saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
         saveConfig();
         loadVars();
     }
