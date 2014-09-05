@@ -5,13 +5,7 @@ public class LicenseHandler {
   private ArrayList license;
   private boolean tampered;
   
-  public LicenseHandler() {
-    this.tampered = null;
-    this.version = "";
-    this.name = "";
-  }
-  
-  public boolean createLicense() {
+  public void createLicense() {
     
   }
   
@@ -32,7 +26,7 @@ public class LicenseHandler {
   }
   
   public Directory getFileLocation() {
-    return findFile();
+    return this.directory;
   }
 
 
@@ -41,11 +35,6 @@ public class LicenseHandler {
 
   protected boolean tamperTest() {
     
-  }
-  
-  protected Directory findFile() {
-    
-    return this.directory;
   }
   
 }
