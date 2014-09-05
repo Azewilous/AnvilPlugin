@@ -47,7 +47,7 @@ public class LicenseHandler {
         }
         Files.createFile(file);
     } catch (FileAlreadyExistsException x) {
-        Bukkit.getServer().getLogger().info("License File - TRUE");
+        Bukkit.getServer().getLogger().info("License File exists!");
     } catch (IOException x) {
        x.printStackTrace();
     }
