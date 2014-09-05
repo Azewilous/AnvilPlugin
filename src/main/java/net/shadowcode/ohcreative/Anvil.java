@@ -38,6 +38,8 @@ public class Anvil extends JavaPlugin {
           }
         }
            PermissionsManager.setupPermissions();
+           
+           LicenseHandler.createLicense();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
