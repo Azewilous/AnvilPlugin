@@ -2,11 +2,11 @@ public class LicenseHandler {
   
   private String version, name, path;
   private Directory directory;
-  private ArrayList license;
+  private ArrayList<String> license;
 
  
   
-  public String getLicense() {
+  public ArrayList<String> getLicense() {
     return license;
   }
   
