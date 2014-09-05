@@ -39,19 +39,5 @@ public class LicenseHandler {
        x.printStackTrace();
     }
   }
-  
-  protected void removeLicense() {
-    path = "plugins" + fs + "Anvil" + "License.txt";
-        
-  try {
-       Files.delete(path);
-    } catch (NoSuchFileException x) {
-       Bukkit.getServer().getLogger().severe("License File does not exist!");
-    } catch (DirectoryNotEmptyException x) {
-       x.printStackTrace();
-    } catch (IOException x) {
-       x.printStackTrace();
-    }
-  }
       
 }
