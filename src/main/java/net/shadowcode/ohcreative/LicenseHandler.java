@@ -3,8 +3,7 @@ public class LicenseHandler {
   private String version, name, path;
   private Directory directory;
   private ArrayList license;
-  private boolean tampered, append_to_file;
-  
+
  
   
   public String getLicense() {
@@ -19,10 +18,6 @@ public class LicenseHandler {
     return version;
   }
   
-  public boolean isTampered() {
-    return (tamperTest() != null);
-  }
-  
   public Directory getFileLocation() {
     return this.directory;
   }
@@ -30,10 +25,8 @@ public class LicenseHandler {
 
 
   
-
-  protected boolean tamperTest() {
-    
-  }
+  
+  
   
   protected void createLicense() {
     FileSeperator fs = System.getProperty("file.separator");
