@@ -21,12 +21,6 @@ public class LicenseHandler {
   public Directory getFileLocation() {
     return this.directory;
   }
-
-
-
-  
-  
-  
   
   protected void createLicense() {
     FileSeperator fs = System.getProperty("file.separator");
