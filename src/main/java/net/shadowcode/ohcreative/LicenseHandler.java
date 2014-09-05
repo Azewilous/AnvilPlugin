@@ -11,7 +11,7 @@ public class LicenseHandler {
     this.name = "";
   }
   
-  public boolean parseLicense() {
+  public boolean createLicense() {
   
   }
   
