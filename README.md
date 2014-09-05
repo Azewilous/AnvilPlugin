@@ -5,4 +5,5 @@ A simple bukkit plugin that brings up an Anvil Interface and has economy integra
 
 ===========
 
-<<p style="color:blue">Configuration</p>
+Configuration
+===============
