@@ -12,7 +12,7 @@ public class LicenseHandler {
   }
   
   public boolean createLicense() {
-  
+    
   }
   
   public String getLicense() {
