@@ -7,10 +7,12 @@ import net.milkbowl.vault.permission.Permission;
 
 
 public final class VaultIntegration {
+    
     public static Permission perms = null;
     public static Economy econ = null;
 
     public static boolean setupEconomy() {
+        
         Plugin p = Anvil.getPlugin(Anvil.class);
         if(p.getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -21,9 +23,11 @@ public final class VaultIntegration {
         }
         econ = rsp.getProvider();
         return econ != null;
+        
     }
 
     protected static boolean setupPermissions() {
+        
         if(Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
@@ -32,6 +36,7 @@ public final class VaultIntegration {
             perms = permissionProvider.getProvider();
         }
         return (perms != null);
+        
     }
 
 
