@@ -7,5 +7,6 @@ A simple bukkit plugin that brings up an Anvil Interface and has economy integra
 
 <h1>Installation/Download</h1>
 <ol>
-  <li><a href="http://dev.bukkit.org/bukkit-plugins/Anvil" title="Hello"></a>
+  <li><a href="http://dev.bukkit.org/bukkit-plugins/Anvil" title="Hello">lol</a>
+  </ol>
   
