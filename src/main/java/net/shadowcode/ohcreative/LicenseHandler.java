@@ -1,10 +1,15 @@
 public class LicenseHandler {
   
+  private LicenseHandler handler;
+  
   private String version, name, path;
   private Directory directory;
   private ArrayList<String> license;
 
  
+  public LicenseHandler getInstance() {
+    return handler;
+  }
   
   public ArrayList<String> getLicense() {
     return license;
