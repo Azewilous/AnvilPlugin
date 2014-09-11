@@ -1,8 +1,13 @@
 package net.shadowcode.ohcreative;
 
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import net.milkbowl.vault.permission.Permission;
+
+
 public final class VaultIntegration {
-
-
+    public static Permission perms = null;
     public static Economy econ = null;
 
     public static boolean setupEconomy() {
@@ -18,7 +23,16 @@ public final class VaultIntegration {
         return econ != null;
     }
 
-
+    protected static boolean setupPermissions() {
+        if(Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+        RegisteredServiceProvider<Permission> permissionProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) {
+            perms = permissionProvider.getProvider();
+        }
+        return (perms != null);
+    }
 
 
 }
