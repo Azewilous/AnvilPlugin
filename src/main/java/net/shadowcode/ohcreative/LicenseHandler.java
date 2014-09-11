@@ -4,7 +4,7 @@ public class LicenseHandler {
   
   private String version, name, path;
   private Directory directory;
-  private ArrayList<String> license;
+  private License license;
 
  
   public LicenseHandler getInstance() {
