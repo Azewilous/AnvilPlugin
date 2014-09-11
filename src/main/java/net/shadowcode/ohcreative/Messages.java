@@ -8,7 +8,7 @@ DENIED(ChatColor.translateAlternateColorCodes('&', "&4You don't have enough perm
 ARG_ERROR(ChatColor.translateAlternateColorCodes('&', "&cUnknown Arguments.")),
 RELOAD(ChatColor.translateAlternateColorCodes('&', "&aYou have reloaded configuration.")),
 HELP("Anvil Help Menu:"),
-NO_MONEY(ChatColor.translateAlternateColorCodes('&', "&cYou do not have enough money!)),
+NO_MONEY(ChatColor.translateAlternateColorCodes('&', "&cYou do not have enough money!")),
 OPEN_INV(ChatColor.translateAlternateColorCodes('&', "&9You have opened the anvil inventory";)),
 CLOSE_INV(ChatColor.translateAlternateColorCodes('&', "&9You have closed the anvil inventory"));
 
