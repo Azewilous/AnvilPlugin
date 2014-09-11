@@ -1,11 +1,6 @@
-<h2>AnvilPlugin</h2>
+<h1>Modern Anvil</h1>
 
-A simple bukkit plugin that brings up an Anvil Interface and has economy integrated.
-
-===========
-
-
-<h1>Installation/Download</h1>
-  <p><h4><a href="http://dev.bukkit.org/bukkit-plugins/Anvil" style="color:red">Click here</a> to download the plugin!</h4></p>
+<h3>Installation/Download</h3>
+  <p><a href="http://dev.bukkit.org/bukkit-plugins/Anvil" style="color:red">Click here</a> to download the plugin!</p>
   
 
