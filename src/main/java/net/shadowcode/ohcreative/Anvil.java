@@ -17,7 +17,7 @@ public class Anvil extends JavaPlugin {
     public static String permission, prefix, noperms, reload, ukargs, vperm,
            message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
     public String bukkitVersion;
-    public static boolean msgops, economy;
+    public static boolean economy;
     public static int price;
 
     public void onEnable() {
@@ -202,7 +202,6 @@ public class Anvil extends JavaPlugin {
         noperms = "&4You don't have enough permissions.";
         ukargs = "&cUnknown Arguments.";
         reload = "&aYou have reloaded configuration.";
-        msgops = true;
         notifyperm = "anvil.reload.notify";
         reloadperm = "anvil.reload";
         helpmsg = "Anvil Help Menu:";
