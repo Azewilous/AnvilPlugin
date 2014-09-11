@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.swing.*;
-
 /**
  * AnvilPlugin
  * Created by OhCreative on 7/18/2014.
@@ -32,12 +30,12 @@ public class Anvil extends JavaPlugin {
         getLogger().severe("Running Server version: " + bukkitVersion);
 
         if(economy) {
-          if (!EconomyManager.setupEconomy()) {
+          if (!VaultIntegration.setupEconomy()) {
             getLogger().severe(" has been disabled due to no Vault dependency found.");
             getServer().getPluginManager().disablePlugin(this);
           }
         }
-           PermissionsManager.setupPermissions();
+           VaultIntegration.setupPermissions();
            
            LicenseHandler.createLicense();
     }
@@ -50,10 +48,10 @@ public class Anvil extends JavaPlugin {
                 if(args.length == 0)
                 {
                     if(economy == true) {
-                        if(PermissionsManager.perms.has(p, moneyperm) || sender.isOp() || price == 0) {
+                        if(VaultIntegration.perms.has(p, moneyperm) || sender.isOp() || price == 0) {
                             AnvilGUI gui;
                             final Player player = (Player) sender;
-                            if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
+                            if (VaultIntegration.perms.has(p, permission) || (sender.isOp())) {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ChatColor.RED + "[ADMIN]" + message));
                                 gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                     public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
@@ -72,7 +70,7 @@ public class Anvil extends JavaPlugin {
                             if (r.transactionSuccess()) {
                                 AnvilGUI gui;
                                 final Player player = (Player) sender;
-                                if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
+                                if (VaultIntegration.perms.has(p, permission) || (sender.isOp())) {
                                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + ChatColor.RED + "-$" + price);
                                     gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                         public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
@@ -92,7 +90,7 @@ public class Anvil extends JavaPlugin {
                     } else {
                         AnvilGUI gui;
                         final Player player = (Player) sender;
-                        if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
+                        if (VaultIntegration.perms.has(p, permission) || (sender.isOp())) {
                             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message));
                             gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                 public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
@@ -108,13 +106,13 @@ public class Anvil extends JavaPlugin {
                     }
                 } else {
                     if (args[0].equalsIgnoreCase("reload")) {
-                        if (PermissionsManager.perms.has(p, reloadperm)) {
+                        if (VaultIntegration.perms.has(p, reloadperm)) {
                             reloadConfig();
                             saveConfig();
                             loadVars();
                             if (msgops) {
                                 for (Player pl : PlayerManager.getPlayers()) {
-                                    if (PermissionsManager.perms.has(pl, notifyperm) || p.isOp()) {
+                                    if (VaultIntegration.perms.has(pl, notifyperm) || p.isOp()) {
                                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
                                     }
                                 }
@@ -130,7 +128,7 @@ public class Anvil extends JavaPlugin {
                             sender.sendMessage(ChatColor.GOLD + "/anvil" + ChatColor.WHITE + " - Open the anvil interface!");
                             sender.sendMessage(ChatColor.GOLD + "/anvil help" + ChatColor.WHITE + " - View help menu.");
                             sender.sendMessage(ChatColor.GOLD + "/anvil version" + ChatColor.WHITE + " - Anvil Version!");
-                            if(PermissionsManager.perms.has(p, reloadperm) || sender.isOp()) {
+                            if(VaultIntegration.perms.has(p, reloadperm) || sender.isOp()) {
                                 sender.sendMessage(ChatColor.GOLD + "/anvil reload" + ChatColor.WHITE + " - Reload Configuration.");
                             }
 
@@ -139,7 +137,7 @@ public class Anvil extends JavaPlugin {
                         }
 
                     } else if(args[0].equalsIgnoreCase("version")) {
-                        if (PermissionsManager.perms.has(p, vperm) || sender.isOp()) {
+                        if (VaultIntegration.perms.has(p, vperm) || sender.isOp()) {
                             p.sendMessage("");
                             p.sendMessage(ChatColor.BLUE + "Anvil");
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
@@ -169,7 +167,7 @@ public class Anvil extends JavaPlugin {
 
                     if (msgops) {
                         for(Player p : PlayerManager.getPlayers()) {
-                            if (PermissionsManager.perms.has(p, notifyperm) || p.isOp()) {
+                            if (VaultIntegration.perms.has(p, notifyperm) || p.isOp()) {
                                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
                             }
                         }
