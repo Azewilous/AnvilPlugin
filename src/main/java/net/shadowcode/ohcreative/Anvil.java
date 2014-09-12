@@ -9,20 +9,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.swing.*;
-
 /**
  * AnvilPlugin
  * Created by OhCreative on 7/18/2014.
  */
 public class Anvil extends JavaPlugin {
-    public static String permission, prefix, noperms, reload, ukargs, vperm,
-           message, notifyperm, reloadperm, helpperm, helpmsg, moneyperm, moneymsg;
     public String bukkitVersion;
-    public static boolean msgops, economy;
+    public static boolean economy;
     public static int price;
+    public Plugin plugin;
 
     public void onEnable() {
+        plugin = Anvil.getPlugin(Anvil.class);
         getServer().getPluginManager().registerEvents(new PlayerManager(), this);
 
         setupConfig();
@@ -32,12 +30,14 @@ public class Anvil extends JavaPlugin {
         getLogger().severe("Running Server version: " + bukkitVersion);
 
         if(economy) {
-          if (!EconomyManager.setupEconomy()) {
+          if (!VaultIntegration.setupEconomy()) {
             getLogger().severe(" has been disabled due to no Vault dependency found.");
             getServer().getPluginManager().disablePlugin(this);
           }
         }
-           PermissionsManager.setupPermissions();
+           VaultIntegration.setupPermissions();
+           
+           LicenseHandler.createLicense();
     }
 
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -47,12 +47,12 @@ public class Anvil extends JavaPlugin {
                 Player p = (Player) sender;
                 if(args.length == 0)
                 {
-                    if(economy == true) {
-                        if(PermissionsManager.perms.has(p, moneyperm) || sender.isOp() || price == 0) {
+                    if(economy) {
+                        if(VaultIntegration.perms.has(p, Permissions.MONEY.getNode()) || sender.isOp() || price == 0) {
                             AnvilGUI gui;
                             final Player player = (Player) sender;
-                            if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ChatColor.RED + "[ADMIN]" + message));
+                            if (VaultIntegration.perms.has(p, Permissions.PERMISSION.getNode()) || (sender.isOp())) {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + ChatColor.RED + "[ADMIN]" + Messages.OPEN_INV.getNode()));
                                 gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                     public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                         event.setWillClose(false);
@@ -61,17 +61,17 @@ public class Anvil extends JavaPlugin {
                                 });
                                 gui.open();
                             } else {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                                 return true;
                             }
                             return true;
                         } else {
-                            EconomyResponse r = EconomyManager.econ.withdrawPlayer(sender.getName(), price);
+                            EconomyResponse r = VaultIntegration.econ.withdrawPlayer(sender.getName(), price);
                             if (r.transactionSuccess()) {
                                 AnvilGUI gui;
                                 final Player player = (Player) sender;
-                                if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message) + ChatColor.RED + "-$" + price);
+                                if (VaultIntegration.perms.has(p, Permissions.PERMISSION.getNode()) || (sender.isOp())) {
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.OPEN_INV.getNode()) + ChatColor.RED + "-$" + price);
                                     gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                         public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                             event.setWillClose(false);
@@ -80,18 +80,18 @@ public class Anvil extends JavaPlugin {
                                     });
                                     gui.open();
                                 } else {
-                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                                     return true;
                                 }
                             } else {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + moneymsg));
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.NO_MONEY.getNode()));
                             }
                         }
                     } else {
                         AnvilGUI gui;
                         final Player player = (Player) sender;
-                        if (PermissionsManager.perms.has(p, permission) || (sender.isOp())) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + message));
+                        if (VaultIntegration.perms.has(p, Permissions.PERMISSION.getNode()) || (sender.isOp())) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.OPEN_INV.getNode()));
                             gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
                                 public void onAnvilClick(AnvilGUI.AnvilClickEvent event) {
                                     event.setWillClose(false);
@@ -100,44 +100,41 @@ public class Anvil extends JavaPlugin {
                             });
                             gui.open();
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                             return true;
                         }
                     }
                 } else {
                     if (args[0].equalsIgnoreCase("reload")) {
-                        if (PermissionsManager.perms.has(p, reloadperm)) {
+                        if (VaultIntegration.perms.has(p, Permissions.RELOAD.getNode())) {
                             reloadConfig();
                             saveConfig();
-                            loadVars();
-                            if (msgops) {
+
                                 for (Player pl : PlayerManager.getPlayers()) {
-                                    if (PermissionsManager.perms.has(pl, notifyperm) || p.isOp()) {
-                                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
+                                    if (VaultIntegration.perms.has(pl, Permissions.NOTIFY.getNode()) || p.isOp()) {
+                                        p.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.RELOAD.getNode()));
                                     }
                                 }
-                            } else {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
-                            }
+
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                         }
                     } else if (args[0].equalsIgnoreCase("help")) {
-                        if (PermissionsManager.perms.has(p, helpperm) || sender.isOp()) {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + helpmsg));
+                        if (VaultIntegration.perms.has(p, Permissions.HELP.getNode()) || sender.isOp()) {
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.HELP.getNode()));
                             sender.sendMessage(ChatColor.GOLD + "/anvil" + ChatColor.WHITE + " - Open the anvil interface!");
                             sender.sendMessage(ChatColor.GOLD + "/anvil help" + ChatColor.WHITE + " - View help menu.");
                             sender.sendMessage(ChatColor.GOLD + "/anvil version" + ChatColor.WHITE + " - Anvil Version!");
-                            if(PermissionsManager.perms.has(p, reloadperm) || sender.isOp()) {
+                            if(VaultIntegration.perms.has(p, Permissions.RELOAD.getNode()) || sender.isOp()) {
                                 sender.sendMessage(ChatColor.GOLD + "/anvil reload" + ChatColor.WHITE + " - Reload Configuration.");
                             }
 
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                         }
 
                     } else if(args[0].equalsIgnoreCase("version")) {
-                        if (PermissionsManager.perms.has(p, vperm) || sender.isOp()) {
+                        if (VaultIntegration.perms.has(p, Permissions.VERSION.getNode()) || sender.isOp()) {
                             p.sendMessage("");
                             p.sendMessage(ChatColor.BLUE + "Anvil");
                             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
@@ -147,33 +144,28 @@ public class Anvil extends JavaPlugin {
                             p.sendMessage("");
 
                         } else {
-                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + noperms));
+                            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.DENIED.getNode()));
                         }
                     }
                     else {
 
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ukargs));
+                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.ARG_ERROR.getNode()));
                     }
                 }
 
             } else {
                 if(args.length == 0) {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "Only player's may use this command."));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + "Only player's may use this command."));
                 } else
                 if(args[0].equalsIgnoreCase("reload")) {
                     reloadConfig();
                     saveConfig();
-                    loadVars();
 
-                    if (msgops) {
                         for(Player p : PlayerManager.getPlayers()) {
-                            if (PermissionsManager.perms.has(p, notifyperm) || p.isOp()) {
-                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
+                            if (VaultIntegration.perms.has(p, Permissions.NOTIFY.getNode()) || p.isOp()) {
+                                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.RELOAD.getNode()));
                             }
                         }
-                    } else {
-                        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + reload));
-                    }
 
                 } else if(args[0].equalsIgnoreCase("version")) {
                     sender.sendMessage("");
@@ -184,7 +176,7 @@ public class Anvil extends JavaPlugin {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-&4-&7-"));
                     sender.sendMessage("");
                 } else {
-                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + ukargs));
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Messages.PREFIX.getNode() + Messages.ARG_ERROR.getNode()));
                 }
             }
         }
@@ -195,30 +187,8 @@ public class Anvil extends JavaPlugin {
 
 
 
-
-    public void loadVars() {
-        prefix = getConfig().getString("anvil.prefix") + " ";
-        permission = "anvil.anvil";
-        noperms = "&4You don't have enough permissions.";
-        ukargs = "&cUnknown Arguments.";
-        reload = "&aYou have reloaded configuration.";
-        msgops = true;
-        notifyperm = "anvil.reload.notify";
-        reloadperm = "anvil.reload";
-        helpmsg = "Anvil Help Menu:";
-        helpperm = "anvil.help";
-        economy = getConfig().getBoolean("anvil.economy");
-        price = getConfig().getInt("anvil.price");
-        moneymsg = "&cYou do not have enough money!";
-        moneyperm = "anvil.economy.exempt";
-        message = "&9You have opened the anvil inventory";
-        vperm = "anvil.version";
-    }
-
     public void setupConfig() {
         getConfig().options().copyDefaults(true);
         saveConfig();
-        loadVars();
     }
-
 }

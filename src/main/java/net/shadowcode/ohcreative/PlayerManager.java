@@ -21,6 +21,7 @@ public class PlayerManager implements Listener {
     protected void onJoin(PlayerJoinEvent event)
     {
         players.add(event.getPlayer());
+        event.getPlayer().sendMessage(Messages.PREFIX.getNode() + "" + Messages.ARG_ERROR.getNode());
     }
 
     @EventHandler
@@ -33,8 +34,5 @@ public class PlayerManager implements Listener {
     {
         return players;
     }
-
-    public static int getOnlineCount() { return (players.size()); }
-
 
 }

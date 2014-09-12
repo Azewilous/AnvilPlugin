@@ -147,6 +147,7 @@ public class AnvilGUI {
                 if(event.getPlayer() instanceof Player){
                     Inventory inv = event.getInventory();
                     if(inv.equals(AnvilGUI.this.inv)){
+                            ((Player) event.getPlayer()).sendMessage(Messages.CLOSE_INV.getNode());
                             destroy();
                     }
                 }
