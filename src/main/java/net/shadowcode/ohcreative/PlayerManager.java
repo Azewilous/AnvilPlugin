@@ -21,7 +21,7 @@ public class PlayerManager implements Listener {
     protected void onJoin(PlayerJoinEvent event)
     {
         players.add(event.getPlayer());
-        event.getPlayer().sendMessage(Messages.PREFIX.getNode() + "" + Messages.ARG_ERROR.getNode());
+        event.getPlayer().sendMessage(Messages.PREFIX.getNode() + "" + Messages.JOIN_MSG.getNode());
     }
 
     @EventHandler

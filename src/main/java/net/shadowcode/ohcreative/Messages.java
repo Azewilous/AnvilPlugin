@@ -12,7 +12,8 @@ RELOAD(ChatColor.translateAlternateColorCodes('&', "&aYou have reloaded configur
 HELP("Anvil Help Menu:"),
 NO_MONEY(ChatColor.translateAlternateColorCodes('&', "&cYou do not have enough money!")),
 OPEN_INV(ChatColor.translateAlternateColorCodes('&', "&9You have opened the anvil inventory")),
-CLOSE_INV(ChatColor.translateAlternateColorCodes('&', "&9You have closed the anvil inventory"));
+CLOSE_INV(ChatColor.translateAlternateColorCodes('&', "&9You have closed the anvil inventory")),
+JOIN_MSG(ChatColor.translateAlternateColorCodes('&', "&cUseful command: &6/anvil help&c!"));
 
     private String msg;
 
