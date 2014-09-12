@@ -1,7 +1,8 @@
 name: Anvil
 main: net.shadowcode.ohcreative.Anvil
-version: 1.7.0
+version: 1.9.5
 author: OhCreative
+description: Add a virtual anvil to your game!
 depend: [Vault]
 
 commands:
